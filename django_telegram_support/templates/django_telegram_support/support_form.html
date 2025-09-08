@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Support — SmartPump</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body{font-family:system-ui,sans-serif;max-width:720px;margin:2rem auto;padding:0 1rem;line-height:1.6}
+    label{display:block;margin:.5rem 0 .25rem}
+    input,textarea{width:100%;padding:.6rem;border:1px solid #ccc;border-radius:8px}
+    button{margin-top:1rem;padding:.6rem 1rem;border:0;border-radius:10px;cursor:pointer}
+    .messages{margin:1rem 0}
+    .msg{padding:.6rem .8rem;border-radius:8px;margin-bottom:.5rem}
+    .success{background:#e8f7ee}
+    .error{background:#fde8e8}
+    small{color:#666}
+  </style>
+</head>
+<body>
+  <h1>Contact Support</h1>
+
+  <div class="messages">
+    {% if messages %}
+      {% for m in messages %}
+        <div class="msg {{ m.tags }}">{{ m }}</div>
+      {% endfor %}
+    {% endif %}
+  </div>
+
+  <form method="post" novalidate>
+    {% csrf_token %}
+    <label for="{{ form.email.id_for_label }}">Your email</label>
+    {{ form.email }}
+    <small>{{ form.email.help_text }}</small>
+
+    <label for="{{ form.message.id_for_label }}">Message</label>
+    {{ form.message }}
+    <small>{{ form.message.help_text }}</small>
+
+    {{ form.website }} {# honeypot #}
+
+    <button type="submit">Send</button>
+  </form>
+</body>
+</html>
